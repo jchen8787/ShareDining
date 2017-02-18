@@ -1,0 +1,70 @@
+<body class="landing-body" data-js="landing">
+
+<section class="modal-overlay">
+  <%= render("signup_modal") %>
+  <%= render("login_modal") %>
+</section>
+
+<section class="landing-banner">
+  <%= render("shared/menu") %>
+
+  <div class="banner-details">
+    <h2 class="tagline">Creating the Kitchen Economy</h2>
+    <h3 class="sub-tagline">Search through available commercial kitchens in your area</h3>
+  </div>
+
+  <div class="landing-search">
+    <%= form_tag({:controller => "search", :action => "results"}, :method => :get, :class => "landing-search-form") do %>
+        <%= text_field_tag :location, nil, class: "landing-location-input", required: true, :placeholder => "Location", "aria-label": "Location" %>
+	<%= date_field_tag :start_date, Date.today, class: "landing-start-input", required: true, :min => Date.today, "aria-label": "Start Date" %>
+	<%= date_field_tag :end_date, Date.today, class: "landing-end-input", required: true, :min => Date.today, "aria-label": "End Date" %>
+
+        <input type="submit" class="landing-submit"></input>
+
+        <!-- Google Maps Autocomplete -->
+        <script>
+          // TODO: this should be moved to a js file and attached to window
+          function initialize() {
+            var options = {
+              types: ['(cities)'],
+              componentRestrictions: { country: "GB" }
+            }
+            var input = document.getElementById('location');
+            var autocomplete = new google.maps.places.Autocomplete(input, options);
+
+          }
+
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDcgmjQMh77M_6_u3k0z1ymYgeEIrENHM&libraries=places&callback=initialize" async defer></script>
+
+    <% end %>
+    </form>
+  </div>
+</section>
+
+<section class="landing-kitchen-list-container">
+  <h2 class="landing-kitchen-section-title">Explore Kitchens</h2>
+  <ul class="landing-kitchen-list clearfix">
+    <li class="landing-kitchen-category">
+      <h2 class="landing-kitchen-category-title">Uptown</h2>
+    </li>
+    <li class="landing-kitchen-category">
+      <h2 class="landing-kitchen-category-title">Central London</h2>
+    </li>
+    <li class="landing-kitchen-category">
+      <h2 class="landing-kitchen-category-title">Downtown</h2>
+    </li>
+    <li class="landing-kitchen-category">
+      <h2 class="landing-kitchen-category-title">Newly Added</h2>
+    </li>
+    <li class="landing-kitchen-category">
+      <h2 class="landing-kitchen-category-title">Highest Rated</h2>
+    </li>
+    <li class="landing-kitchen-category">
+      <h2 class="landing-kitchen-category-title">Last Minute</h2>
+    </li>
+  </ul>
+</section>
+
+<%= render("shared/footer") %>
+</body>

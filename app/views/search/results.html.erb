@@ -1,0 +1,71 @@
+<script>
+  window.landingLatitude = <%= @coordinates[0] %>;
+  window.landingLongitude = <%= @coordinates[1] %>;
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDcgmjQMh77M_6_u3k0z1ymYgeEIrENHM&libraries=places&callback=resultsGoogleInit" async defer></script>
+
+<body data-js="results">
+<%= render 'shared/menu' %>
+
+<section id="map" class="results-map-container">
+  <!--Google map rendered here-->
+</section>
+
+<section class="results-container loading">
+
+  <ul class="filters-list clearfix">
+    <li class="filter">
+      <label for="start_date">Begin</label>
+      <%= date_field_tag :start_date, @start_date, :min => Date.today %>
+    </li>
+    <li class="filter">
+      <label for="end_date">End</label>
+      <%= date_field_tag :end_date, @end_date, :min => Date.today %>
+    </li>
+    <li class="filter">
+      <label for="type_of_kitchen">Type</label>
+      <select id="type_of_kitchen" name="type_of_kitchen">
+        <option value="any" selected>Any</option>
+        <option value="whole">Whole Kitchen</option>
+        <option value="shared">Shared Space</option>
+      </select>
+    </li>
+    <li class="filter">
+      <label for="sort_kitchens">Sort</label>
+      <select id="sort_kitchens" name="sort_kitchens">
+        <option value="best_match">Best Match</option>
+        <option value="price_low_to_high">Price: lowest first</option>
+        <option value="price_high_to_low">Price: highest first</option>
+        <option value="newest_created">Time: newly listed</option>
+      </select>
+    </li>
+  </ul>
+
+  <div class="no-results-container">Sorry, no kitchens match those criteria.</div>
+
+  <ul class="results-list clearfix">
+    <li class="loading-overlay">
+      <svg class="loading-icon" version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           viewBox="0 0 40 40" enable-background="new 0 0 40 40" xml:space="preserve">
+        <path opacity="0.2" fill="#000" d="M20.201,5.169c-8.254,0-14.946,6.692-14.946,14.946c0,8.255,6.692,14.946,14.946,14.946
+    s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
+    c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z"/>
+        <path fill="#000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
+    C22.32,8.481,24.301,9.057,26.013,10.047z">
+          <animateTransform attributeType="xml"
+                            attributeName="transform"
+                            type="rotate"
+                            from="0 20 20"
+                            to="360 20 20"
+                            dur="0.5s"
+                            repeatCount="indefinite"/>
+        </path>
+      </svg>
+    </li>
+    <!--Results will be rendered here-->
+  </ul>
+
+</section>
+
+</body>

@@ -1,0 +1,63 @@
+<body class="request-kitchen-body" data-js="kitchen-request">
+<%= render("shared/menu") %>
+
+<section class="request-kitchen-main-container clearfix">
+  <div class="request-kitchen-details-container">
+    <h1 class="request-kitchen-details-header">1. Additional Information</h1>
+    <fieldset class="kitchen-request-additional-info-fieldset">
+      <label class="additional-info-label" for="additional-info">Tell the owner briefly what you need the kitchen space for:</label>
+      <textarea class="kitchen-request-additional-info-input" id="additional-info" placeholder="e.g. I need to produce an inventory of [X]."></textarea>
+    </fieldset>
+    <h1 class="request-kitchen-details-header">2. Payment</h1>
+    <h2 class="payment-details">Please enter your payment information below. Note that you will not be charged until the
+      kitchen owner accepts your request.</h2>
+
+    <%= render("charges/form") %>
+  </div>
+  <aside class="request-kitchen-sidebar">
+    <div class="kitchen-request-side-image-container"></div>
+    <h1 class="request-kitchen-title"><%= @kitchen.title %></h1>
+    <h2 class="request-kitchen-address"><%= @censored_address %></h2>
+    <ul class="kitchen-tag-list clearfix">
+      <li class="kitchen-tag"><%= @kitchen.rental_space %></li>
+    </ul>
+    <div class="request-kitchen-side-details-container">
+      <div class="request-kitchen-date"><%= @reservation.start_date.strftime("%B %d, %Y") %></div>
+      <% if @reservation.multiple == false %>
+        <div class="request-kitchen-start-time"><%= @reservation.start_time[4].to_s + ":" + @reservation.start_time[5].to_s + "0 " + ((@reservation.start_time[4] < 12) ? "AM" : " PM") %></div>
+        <div class="request-kitchen-end-time"><%= @reservation.end_time[4].to_s + ":" + @reservation.end_time[5].to_s + "0 " + ((@reservation.end_time[4] < 12) ? "AM" : "PM") %></div>
+      <% end %>
+      <span class="clearfix"></span>
+    </div>
+
+    <!--TODO: Replace with actual data-->
+    <ul class="request-kitchen-price-list">
+      <li class="request-kitchen-price-element clearfix">
+        <% if @reservation.multiple == false %>
+          <% numHours = @reservation.end_time[4] - @reservation.start_time[4] %>
+          <!-- <span class="kitchen-price-calculation">£<%= @kitchen.price * 1.2 %> x <span class="kitchen-price-num-hours"><%= numHours %></span> hours</span> -->
+          <span class="kitchen-price-calculation">Kitchen Fee</span>
+          <span class="kitchen-price-total">£<%= @kitchen.price * numHours %></span>
+          <span class="kitchen-price-calculation">Service Fee</span>
+          <span class="kitchen-price-total">£<%= @kitchen.price * 0.2 * numHours %></span>
+        <% else %>
+          <span class="kitchen-price-calculation">£<%= @kitchen.price %> x <span class="kitchen-price-num-hours">5</span> hours</span>
+          <span class="kitchen-price-total">£<%= @kitchen.price * 1.2 * 5 %></span>
+        <% end %>
+      </li>
+      <li class="request-kitchen-total-price clearfix">
+        <% if @reservation.multiple == false %>
+          <span class="kitchen-price-total-label">Total</span>
+          <span class="kitchen-price-total">£<%= @kitchen.price * 1.2 * numHours %></span>
+        <% else %>
+          <span class="kitchen-price-total-label">Total</span>
+          <span class="kitchen-price-total">£<%= @kitchen.price * 1.2 * 5 %></span>
+        <% end %>
+      </li>
+    </ul>
+  </aside>
+</section>
+
+<%= render("shared/footer") %>
+
+</body>

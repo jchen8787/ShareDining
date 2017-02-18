@@ -1,0 +1,353 @@
+@import 'colors';
+@import 'fonts';
+
+$field-height: 36px;
+$menu-width: 350px;
+
+.kitchen-new-body {
+  background-color: lighten($light-grey, 16);
+}
+
+.kitchen-new-container {
+  width: 969px;
+  margin: 0 $menu-width;
+  font-family: main;
+  background-color: $white;
+  padding-top: 40px;
+  min-height: calc(100vh - 100px);
+  border-left: 2px solid $light-grey;
+}
+
+.kitchen-new-subtitle,
+.kitchen-new-title {
+  font-family: logo;
+  width: 100%;
+  text-align: center;
+}
+
+.kitchen-new-title {
+  font-size: 34px;
+  color: $dark-grey;
+}
+
+.kitchen-new-subtitle {
+  font-size: 14px;
+  color: lighten($dark-grey, 20);
+  margin: 16px 0 40px;
+}
+
+// can be abstracted to general styles if we need to
+.fieldset {
+  width: 85%;
+  min-width: 350px;
+  margin: 0 auto;
+  display: none;
+
+  &.current {
+    display: block;
+  }
+
+  &.fieldset-basic {
+    width: 50%;
+  }
+
+  .fieldset-title {
+    font-family: logo;
+    width: 100%;
+    color: $dark-grey;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0 0 10px;
+  }
+
+  .input-list li {
+    margin: 16px 0;
+  }
+
+  label,
+  .input-fieldset-title,
+  .checkbox-fieldset-title {
+    font-size: 14px;
+    margin-bottom: 4px;
+    display: block;
+    font-family: logo;
+  }
+
+  textarea,
+  input[type=text] {
+    width: 100%;
+    border-radius: 2px;
+    border: 2px solid $light-grey;
+    font-size: 16px;
+    color: $dark-grey;
+    padding: 10px;
+
+    &:active,
+    &:hover {
+      border-color: darken($light-grey, 30);
+    }
+  }
+
+  textarea {
+    font-size: 14px;
+    line-height: 1.2;
+    height: #{16 * 4 * 1.2}px;
+  }
+
+  .price-input,
+  .price-currency-symbol {
+    display: inline-block;
+    height: 28px;
+    vertical-align: middle;
+    line-height: 28px;
+  }
+
+  .price-input {
+    width: 64px;
+    color: $dark-grey;
+    border: 1px solid $light-grey;
+    font-size: 20px;
+  }
+
+  .price-currency-symbol {
+    font-family: logo;
+    padding: 0 10px;
+    border-radius: 4px 0 0 4px;
+    background-color: lighten($light-grey, 10);
+    color: lighten($dark-grey, 10);
+    border: 2px solid $light-grey;
+    margin-right: -.25em;
+  }
+
+  .price-description {
+    color: lighten($dark-grey, 20);
+    font-size: 12px;
+  }
+}
+
+// fancy styling to get checkboxes looking like pick button list
+.radio-selection-list {
+  width: 80%;
+  margin: 0 auto;
+
+  input[type=radio],
+  input[type=checkbox] {
+    display: none;
+  }
+
+  li {
+    width: 50%;
+    height: 40px;
+    float: left;
+  }
+
+  label {
+    height: 100%;
+    width: 100%;
+    border: 2px solid $light-grey;
+    text-align: center;
+    line-height: 40px;
+    font-size: 12px;
+
+    &:hover {
+      background-color: lighten($light-grey, 10);
+    }
+  }
+
+  li:first-child label {
+    border-radius: 5px 0 0 5px;
+    border-right: none;
+  }
+
+  li:last-child label {
+    border-radius: 0 5px 5px 0;
+  }
+
+  input[type=radio],
+  input[type=checkbox] {
+    &:checked ~ label {
+      background-color: $dark-grey;
+      color: $white;
+    }
+  }
+}
+
+.checkbox-fieldset {
+  margin: 20px 0;
+  width: 100%;
+
+  .checkbox-field-list {
+    width: 100%;
+  }
+
+  .checkbox-fieldset-list-item {
+    width: calc(45% - 1px);
+    float: left;
+    height: $field-height;
+
+    &:nth-child(odd) {
+      border-right: 2px solid $light-grey;
+      padding-right: 5%;
+      margin-right: 5%;
+    }
+
+    .inventory-fieldlist-checkbox,
+    //.inventory-quantity-input,
+    label {
+      float: left;
+    }
+
+    label {
+      font-family: main;
+      font-size: 14px;
+      color: lighten($dark-grey, 30);
+      line-height: $field-height;
+    }
+
+    &:after {
+      content: '';
+      display: table;
+      clear: both;
+    }
+  }
+
+  .inventory-fieldlist-checkbox {
+    padding: 0;
+    height: 16px;
+    width: 16px;
+    margin: 10px 10px 10px 0;
+
+    &:checked {
+      & ~ label {
+        color: lighten($dark-grey, 10);
+      }
+
+      & ~ .inventory-quantity-input {
+        display: block;
+      }
+    }
+  }
+
+  .inventory-quantity-input {
+    display: none;
+    box-sizing: border-box;
+    float: right;
+    padding: 2px;
+    width: 24px;
+    border: none;
+    border-bottom: 2px solid $light-grey;
+    text-align: center;
+    height: 18px;
+    margin-top: ($field-height - 18px)/2;
+  }
+}
+
+.kitchen-new-side-menu {
+  position: absolute;
+  top: 61px;
+  left: 0;
+  min-width: $menu-width;
+  background-color: lighten($light-grey, 15);
+  height: calc(100vh - 61px);
+  font-family: main;
+  font-size: 15px;
+
+  &.stuck {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+  }
+
+  .kitchen-new-side-menu-list,
+  .kitchen-new-side-menu-el {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .kitchen-new-side-menu-list {
+    padding-top: 20px;
+  }
+
+  .kitchen-new-side-menu-el {
+    box-sizing: border-box;
+    height: 50px;
+    line-height: 50px;
+    position: relative;
+  }
+
+  .kitchen-new-menu-link {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: inherit;
+    text-decoration: inherit;
+    padding-left: 20px;
+    transition: padding-left .5s, background-color .25s;
+
+    &.current {
+      background-color: lighten($light-grey, 10);
+      font-family: logo;
+    }
+
+    &.current,
+    &:hover {
+      padding-left: 30px;
+    }
+
+    &:hover {
+      background-color: lighten($light-grey, 12);
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      right: 8px;
+      top: 20px;
+      height: 10px;
+      width: 10px;
+      border-radius: 100%;
+      opacity: 0;
+      transition: opacity .5s;
+    }
+
+    &.completed:after {
+      background-color:$light-green;
+      opacity: 1;
+    }
+
+    &.incomplete:after {
+      background-color: $light-red;
+      opacity: 1;
+    }
+  }
+}
+
+.kitchen-new-button-container {
+  width: 70%;
+  margin: 20px auto 0;
+  border-top: 1px solid $light-grey;
+  padding: 20px 0 30px;
+
+  .next-button,
+  .prev-button {
+    width: 100px;
+    height: 36px;
+    margin: 0;
+    cursor: pointer;
+
+    &:disabled {
+      opacity: .2;
+      pointer-events: none;
+      cursor: default;
+    }
+  }
+
+  .next-button {
+    float: right;
+  }
+
+  .prev-button {
+    float: left;
+  }
+}

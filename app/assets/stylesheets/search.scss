@@ -1,0 +1,199 @@
+@import 'colors';
+@import 'fonts';
+@import 'menu';
+
+$filter-height: 70px;
+$filter-tb-margins: 24px;
+
+
+// just make all svgs conform to parent size
+svg {
+  height: 100%;
+  width: 100%;
+}
+
+.nav-search-icon {
+  float: left;
+  height: 20px;
+  width: 20px;
+  padding: ($nav-height - 20px)/2;
+  opacity: .75;
+  fill: lighten($dark-grey, 30);
+}
+
+.nav-search {
+  height: inherit;
+  display: block;
+  float: left;
+  margin: 0;
+  border: none;
+  color: $dark-grey;
+  width: calc(100% - 1000px);
+  font-size: 14px;
+  padding: 0 0 0 20px;
+  border-bottom: inherit;
+}
+
+.results-map-container {
+  float: left;
+  width: 40%;
+  height: calc(100vh - #{$nav-height});
+  border-right: 1px solid #CCC;
+}
+
+.results-container {
+  height: calc(100vh - #{$nav-height});
+  overflow: scroll;
+  font-family: logo;
+  width: calc(60% - 1px);
+  float: left;
+  background-color: lighten($light-grey, 15);
+
+  .filters-list {
+    position: relative;
+    background-color: $white;
+    box-shadow: 0 2px 3px 2px rgba($light-grey, .8);
+    width: 95%;
+    height: $filter-height;
+    margin: $filter-tb-margins auto;
+  }
+
+  .filter {
+    box-sizing: border-box;
+    width: 25%;
+    border-left: 1px solid $light-grey;
+    float: left;
+    height: inherit;
+
+    label {
+      color: lighten($dark-grey, 25);
+      text-transform: uppercase;
+      font-size: 12px;
+      display: block;
+      width: 100%;
+      padding: 10px;
+    }
+
+    input[type=date],
+    select {
+      box-sizing: border-box;
+      font-family: main;
+      border: none;
+      padding-left: 10px;
+      width: 100%;
+      display: block;
+      font-size: 18px;
+    }
+
+    select {
+      background-color: inherit;
+    }
+  }
+}
+
+.no-results-container {
+  display: none;
+  width: 100%;
+  margin-top: 50px;
+  text-align: center;
+  color: $dark-grey;
+}
+
+.results-list {
+  width: 100%;
+  position: relative;
+
+  .result {
+    box-sizing: border-box;
+    width: calc(50% - 24px);
+    margin: 8px 16px;
+    float: left;
+    height: 320px;
+    background: no-repeat center;
+    background-size: 100% 100%;
+    box-shadow: 2px 2px 5px 2px rgba($dark-grey, .4);
+
+    &:nth-child(even) {
+      margin-right: 0;
+    }
+
+    // TODO: change this so the results have real backgrounds
+    @for $i from 1 to 7 {
+      &:nth-child(#{$i}n) {
+        background-image: image_url('sampleKitchens/#{$i}.jpg');
+      }
+    }
+  }
+
+  .result-link {
+    display: block;
+    font: inherit;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba($dark-grey, .7), rgba($dark-grey, .5) 5%, rgba($dark-grey, 0) 30%);
+    color: $white;
+    text-decoration: inherit;
+    position: relative;
+
+    .result-title,
+    .result-price-container {
+      position: absolute;
+      bottom: 0;
+      box-sizing: border-box;
+    }
+
+    .result-title {
+      font-family: main;
+      font-size: 18px;
+      left: 0;
+      padding: 0 0 10px 10px;
+      width: 70%;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    .result-price-container {
+      right: 0;
+      padding: 0 10px 10px 0;
+      width: 30%;
+      text-align: right;
+
+      .result-price {
+        font-size: 24px;
+      }
+
+      .result-price-after {
+        opacity: .8;
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+.results-container.loading {
+  overflow: hidden;
+
+  .loading-overlay {
+    display: block;
+  }
+}
+
+// loading overlay and icon
+.loading-overlay {
+  display: none;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  background-color: rgba($white, .3);
+  z-index: 500;
+
+  .loading-icon {
+    display: block;
+    margin: 50vh auto 0 auto;
+    transform: translateY(-($nav-height + $filter-height + 2 * $filter-tb-margins));
+
+    width: 100px;
+    height: 100px;
+  }
+}

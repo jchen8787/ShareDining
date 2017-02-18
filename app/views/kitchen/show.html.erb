@@ -1,0 +1,228 @@
+<body class="kitchen-listing-body" data-js="kitchen-show">
+
+<section class="modal-overlay">
+  <%= render("multiple_reservation_modal") %>
+  <%= render("single_reservation_modal") %>
+</section>
+
+<%= render("shared/menu") %>
+
+<div class="listing-container">
+  <section class="listing-head-container clearfix">
+    <h2 class="listing-title"><%= @kitchen.title %></h2>
+    <ul class="listing-details-list">
+      <li><%= @censored_address %></li>
+      <!-- <li>2 Reviews</li> -->
+    </ul>
+  </section>
+
+  <section class="listing-date-container clearfix">
+    <%= form_for @reservation, url: kitchen_reservation_new_path(@kitchen, @reservation), html: {method: :post, class: "listing-dates-form"} do |f| %>
+      <%= f.radio_button :multiple, 'Single Reservation', class: 'single-reservation-button' %>
+      <%= f.label :multiple, 'Single Reservation', value: false %>
+      <%= f.radio_button :multiple, 'Multiple Reservations', class: 'multiple-reservation-button' %>
+      <%= f.label :multiple, 'Multiple Reservations', value: true %>
+
+      <!-- <div class="listing-dates-form-field"> -->
+        <!-- <label class="listing-date-label" for="start_date">Date</label> -->
+        <%# f.date_field :start_date, value: Date.today, class: "listing-start-date" %>
+        <!-- TODO: load only available hours -->
+        <%# f.time_select :start_time, minute_step: 30, start_hour: @availability[@day][0].to_i, end_hour: @availability[@day][1].to_i, time_separator: ':' %>
+        <%# f.time_select :end_time, minute_step: 30, start_hour: @availability[@day][0].to_i, end_hour: @availability[@day][1].to_i, time_separator: ':' %>
+      <!-- </div> -->
+
+    <% end %>
+
+    <div class="listing-price-container">
+      <!--<span class="listing-price">-->
+        <!--<span class="price-math">£<%= @kitchen.price * 1.2 %>/hr * 3 hours =</span>-->
+        <!--&lt;!&ndash; need Ajax to update math display &ndash;&gt;-->
+        <!--<span class="listing-total-price">$920</span>-->
+      <!--</span>-->
+      <!-- <button form="new_reservation" type="submit" class="transparent-button listing-book-button">Request Kitchen</button> -->
+      <%= link_to 'Message Owner', new_message_path(:kitchen_owner => @kitchen.user_id), class: "transparent-button listing-book-button"%>
+    </div>
+  </section>
+
+  <section class="listing-images-container slider-container" role="region" aria-label="Kitchen Images">
+    <button class="prev-button">Previous Slide</button>
+    <button class="next-button">Next Slide</button>
+    <ul id="listing-images" class="slider-list">
+      <!--TODO: remove if else block for production, this is simply for testing kitchens that don't have images-->
+      <% if @kitchen.photos.present? %>
+        <% @kitchen.photos.each do |photo| %>
+            <li class="slider-list-element">
+              <%= image_tag photo, class: 'listing-image' %>
+            </li>
+        <% end %>
+      <% else %>
+        <li class="slider-list-element">
+          <%= image_tag 'sampleKitchens/1.jpg', class: 'listing-image' %>
+        </li>
+        <li class="slider-list-element">
+          <%= image_tag 'sampleKitchens/2.jpg', class: 'listing-image' %>
+        </li>
+        <li class="slider-list-element">
+          <%= image_tag 'sampleKitchens/3.jpeg', class: 'listing-image' %>
+        </li>
+        <li class="slider-list-element">
+          <%= image_tag 'sampleKitchens/4.jpeg', class: 'listing-image' %>
+        </li>
+      <% end %>
+    </ul>
+    <ul class="breadcrumb-list"></ul>
+  </section>
+
+  <section class="listing-details-container">
+    <div class="listing-description">
+      <h2 class="listing-details-heading">Description</h2>
+      <p>
+        <%= @kitchen.description %>
+      </p>
+    </div>
+
+    <div class="listing-features clearfix">
+      <% if @kitchen.washing_station.present? %>
+          <div class="listing-inventory-section-container">
+            <h2 class="listing-features-heading">Washing Station</h2>
+            <ul class="listing-features-list">
+              <% @kitchen.washing_station.each do |washing_station| %>
+                  <li><%= washing_station %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <% if @kitchen.food_preparation.present? %>
+          <div class="listing-inventory-section-container">
+            <h2 class="listing-features-heading">Food Preparation</h2>
+            <ul class="listing-features-list">
+              <% @kitchen.food_preparation.each do |food_preparation| %>
+                  <li><%= food_preparation %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <% if @kitchen.cookware.present? %>
+          <div class="listing-inventory-section-container">
+            <h2 class="listing-features-heading">Cookware</h2>
+            <ul class="listing-features-list">
+              <% @kitchen.cookware.each do |cookware| %>
+                  <li><%= cookware %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <% if @kitchen.storage.present? %>
+          <div class="listing-inventory-section-container">
+            <h2 class="listing-features-heading">Storage</h2>
+            <ul class="listing-features-list">
+              <% @kitchen.storage.each do |storage| %>
+                  <li><%= storage %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <% if @kitchen.refrigeration.present? %>
+          <div class="listing-inventory-section-container">
+            <h2 class="listing-features-heading">Refrigeration</h2>
+            <ul class="listing-features-list">
+              <% @kitchen.refrigeration.each do |refrigeration| %>
+                  <li><%= refrigeration %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <% if @kitchen.ovens_fryers.present? %>
+          <div class="listing-inventory-section-container">
+            <h2 class="listing-features-heading">Ovens/Fryers</h2>
+            <ul class="listing-features-list">
+              <% @kitchen.ovens_fryers.each do |ovens_fryers| %>
+                  <li><%= ovens_fryers %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <% if @kitchen.oven_equipment_and_storage.present? %>
+          <div class="listing-inventory-section-container">
+            <h2 class="listing-features-heading">Oven Equipment &amp; Storage</h2>
+            <ul class="listing-features-list">
+              <% @kitchen.oven_equipment_and_storage.each do |oven_equipment_and_storage| %>
+                  <li><%= oven_equipment_and_storage %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <% if @kitchen.baking_and_pastry.present? %>
+          <div class="listing-inventory-section-container">
+            <h2 class="listing-features-heading">Baking &amp; Pastry</h2>
+            <ul class="listing-features-list">
+              <% @kitchen.baking_and_pastry.each do |baking_and_pastry| %>
+                  <li><%= baking_and_pastry %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <% if @kitchen.other_equipment.present? %>
+          <div class="listing-inventory-section-container">
+            <h2 class="listing-features-heading">Other Equipment</h2>
+            <ul class="listing-features-list">
+              <% @kitchen.other_equipment.each do |other_equipment| %>
+                  <li><%= other_equipment %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <% if @kitchen.other_amenities.present? %>
+          <div class="listing-inventory-section-container">
+            <h2 class="listing-features-heading">Other Amenities</h2>
+            <ul class="listing-features-list">
+              <% @kitchen.other_amenities.each do |other_amenities| %>
+                  <li><%= other_amenities %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+    </div>
+  </section>
+
+  <section class="listing-review-container">
+    <div class="listing-review-heading">
+      <% if @reviews.length == 1 %>
+        <%= @reviews.length %> Review (<%= @avg_rating %> stars)
+      <% else %>
+        <%= @reviews.length %> Reviews (<%= @avg_rating %> stars)
+      <% end %>
+    </div>
+
+    <ul class="listing-review-list">
+      <% if @reviews.length == 0 %>
+        No reviews yet.
+      <% else %>
+        <% @reviews.each do |review| %>
+          <li class="listing-review-name">
+            <%= review.user.first_name %>
+            <br/>
+            <%= review.created_at.strftime("%B %d") %>
+          </li>
+          <li class="listing-review-content">
+            <%= review.comment %>
+          </li>
+          <hr/>
+        <% end %>
+      <% end %>
+    </ul>
+  </section>
+</div>
+
+<%= render("shared/footer") %>
+</body>

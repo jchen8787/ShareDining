@@ -1,0 +1,26 @@
+<div class="signup-modal modal" role="dialog" aria-labelledby="signup-modal-title" aria-describedby="signup-modal-description">
+  <h1 id="signup-modal-title" class="modal-title">Become a member</h1>
+  <h2 id="signup-modal-description" class="modal-tagline">Join and start sharing in the kitchen economy</h2>
+  <ul class="modal-list">
+    <li>
+      <button>
+        <svg>
+          <use xlink:href="#facebook"></use>
+        </svg>
+          <span class="login-button-text">
+            Sign Up with Facebook
+          </span>
+      </button>
+    </li>
+  </ul>
+
+  <h3 class="modal-separator-title">Sign Up with email</h3>
+
+  <%= render "devise/registrations/new" %>
+  <!-- <form class="login-email-form">
+    <input type="email" placeholder="Your Email">
+    <input type="password" placeholder="Password">
+    <input type="password" placeholder="Confirm Password">
+    <input type="submit" value="Signup">
+  </form> -->
+</div>

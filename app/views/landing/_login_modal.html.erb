@@ -1,0 +1,29 @@
+<div class="login-modal modal" role="dialog" aria-labelledby="login-modal-title" aria-describedby="login-modal-description">
+  <h1 id="login-modal-title" class="modal-title">Start Cooking</h1>
+  <h2 id="login-modal-description" class="modal-tagline">Find some of the best kitchens in your area</h2>
+  <ul class="modal-list">
+    <li>
+      <button>
+        <svg>
+          <use xlink:href="#facebook"></use>
+        </svg>
+          <span class="login-button-text">
+            Login with Facebook
+          </span>
+      </button>
+    </li>
+  </ul>
+
+  <h3 class="modal-separator-title">login with email</h3>
+  <%= render("devise/sessions/new") %>
+
+  <!-- <form class="login-email-form">
+    <input type="email" placeholder="Your Email">
+    <input type="password" placeholder="Password">
+    <input type="submit" value="Login">
+  </form> -->
+
+  <div class="login-details">
+
+  </div>
+</div>

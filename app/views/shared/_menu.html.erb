@@ -1,0 +1,31 @@
+<!--we should render this on everypage and simply link to the icons via use-->
+<%= render 'shared/icons' %>
+<nav class="main-nav">
+  <a class="main-logo-link clearfix" href="<%= root_url %>"><h1 class="main-logo">ShareDining</h1></a>
+
+  <% if @coordinates != nil %>
+    <label for="nav-search" class="nav-search-icon">
+      <svg>
+        <use xlink:href="#search"></use>
+      </svg>
+    </label>
+    <input id="pac-input" name="location" type="text" class="nav-search" placeholder="Location" aria-label="Location" value="<%= @location %>">
+  <% end %>
+
+  <ul class="landing-links">
+    <% if user_signed_in? %>
+      <li><%= link_to "Messages", conversations_path %></li>
+      <li><%= link_to "Help", landing_help_path %></li>
+      <li><%= link_to current_user.first_name, dashboard_path %></li>
+      <li><%= link_to "Sign out", destroy_user_session_path %></li>
+    <% else %>
+      <!-- Recipe Book will be a link to the blog -->
+      <li><%= link_to "The ShareDining Recipe Book", root_url %></li>
+      <li><a href="#" class="nav-login-button">Login</a></li>
+      <li><a href="#" class="nav-signup-button">Sign Up</a></li>
+    <% end %>
+  </ul>
+  <a href="<%= new_kitchen_path %>"><button class="transparent-button landing-rent-button">
+    Rent Your Kitchen
+  </button></a>
+</nav>

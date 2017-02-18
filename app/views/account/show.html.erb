@@ -1,0 +1,45 @@
+<%= render("shared/menu") %>
+
+<section class="account-information">
+	<div class="account-name">
+		Hey, I'm <%= @user.first_name %>!
+	</div>
+	<br/>
+	Joined: <%= @user.created_at.strftime("%B %d, %Y") %>
+</section>
+
+<!-- Add ajax to dynamically update user info -->
+<section class="account-questions-container">
+	<div class="account-questions-purpose">
+		Tell us about your food business or why you need to rent kitchen space?
+		<textarea placeholder="Let us know how we can help."></textarea>
+	</div>
+	<div class="account-questions-favorite">
+		Tell us about your favourite recipe, restaurant or memorable food experience.
+		<textarea placeholder="Let us and the rest of the community get to know you a bit better."></textarea>
+	</div>
+</section>
+
+<section class="account-kitchen-container">
+	<div class="account-kitchen-title">
+		My Kitchens
+	</div>
+	<div class="account-kitchen-list">
+		<% @kitchens.each do |kitchen| %>
+			<div class="account-kitchen-list-el">
+				<%= link_to kitchen.title, "/kitchen/" + kitchen.token %>
+			</div>
+		<% end %>
+	</div>
+</section>
+
+<section class="account-payment-container">
+	<div class="account-payment-title">
+		Payment Information
+	</div>
+	<!-- User payment information saved with Stripe.
+			The form should display user payment information if it exists -->
+	<%= render("account/payment_info") %>
+</section>
+
+<%# link_to 'Edit Account Information', edit_user_registration_path %>
